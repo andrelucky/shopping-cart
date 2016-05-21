@@ -2,11 +2,11 @@ language: java
 jdk:
 - oraclejdk8
 services:
-- mysql
+  - postgresql
 before_install:
-- mysql -uroot -e "grant all on shopping_cart.* to shopping_cart@localhost identified by 'java'"
-- mysql -uroot -e "drop database if exists shopping_cart"
-- mysql -uroot -e "create database shopping_cart"
+- psql -c "grant all on shopping_cart.* to postgres@localhost identified by 'java'" -U postgres
+- psql -c "drop database if exists shopping_cart" -U postgres
+- psql -c "create database shopping_cart" -U postgres
 after_success:
 - mvn jacoco:report coveralls:report
 deploy:
