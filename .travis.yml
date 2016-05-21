@@ -4,7 +4,6 @@ jdk:
 services:
   - postgresql
 before_install:
-- psql -c "grant all on shopping_cart.* to postgres@localhost identified by 'java'" -U postgres
 - psql -c "drop database if exists shopping_cart" -U postgres
 - psql -c "create database shopping_cart" -U postgres
 after_success:
