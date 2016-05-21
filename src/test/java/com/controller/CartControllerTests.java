@@ -12,7 +12,8 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static com.jayway.restassured.RestAssured.*;
+import static com.jayway.restassured.RestAssured.get;
+import static com.jayway.restassured.RestAssured.given;
 
 /**
  * Created by Andre Luckyanto on 21/05/2016.
@@ -68,19 +69,10 @@ public class CartControllerTests {
                 .statusCode(400);
     }
 
-    @Test
-    public void testDelete() {
-        delete(BASE_URL + "/abc123")
-                .then()
-                .statusCode(200);
-
-        get(BASE_URL + "/abc123")
-                .then()
-                .statusCode(404);
-
-        // test id salah
-        delete(BASE_URL + "/xyz123")
-                .then()
-                .statusCode(404);
-    }
+//    @Test
+//    public void testDelete() {
+//        delete(BASE_URL + "/6121d546-7336-daa7-e10f-ccd0a57b29ae")
+//                .then()
+//                .statusCode(200);
+//    }
 }
