@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static com.jayway.restassured.RestAssured.*;
@@ -21,7 +20,7 @@ import static com.jayway.restassured.RestAssured.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ShoppingCartApplication.class)
-@Sql(scripts = {"/sample.sql"})
+//@Sql(scripts = {"/sample.sql"})
 @WebIntegrationTest(randomPort = true)
 public class CartControllerTests {
     private static final String BASE_URL = "/api/cart";
