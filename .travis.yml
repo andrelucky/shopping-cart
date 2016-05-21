@@ -1,0 +1,14 @@
+language: java
+jdk:
+- oraclejdk8
+services:
+- mysql
+after_success:
+- mvn jacoco:report coveralls:report
+deploy:
+  provider: heroku
+  api_key:
+    secure: JJsxenxQDBeddRijZiwLeH+4Nr1Ol7XyS8bXvk+wNztUm0NEM5NcBzZJ1VEc3W44poxO/+15cyLCBFD0fa4oU0zR9TPnO6r9kIE3h6vxm1yYF4sBZGG58qT+1KnS+ZHZiiCDYjRJAJ6DPfhHftrT41m4PbCY5AtWiKrHbx2TKAz9rd6vvZ+p2J8OPHL6kLmSos3N4jEw+8GMse6tp63VQfCrYDADSAkHaVzicgbTIvRVOiUB22FUpVEBX68LMkJXCl4c8gz6y+PG1LtIVmRpnbkI6VgDiincgho4GcXxCf4XlYC9y/Da1juStICzMFofZHLm1pVV2QydBTTAENato1n/HtD5m45wiGBnU8NK3gn+OA/jXn75L2+cBIG46KLV/3Ocv5z4LtShpsXfFZBVvASsh+qb8sHIVIKuSwWam5907QJWqqlS5z7tXT3BxjbdTwtyBHfwiElYE8jYSPYhkuXXcin62C/72GlnLPLacsmyPvDLWZsUAjMzHapzLEueTH0A1y4Ra9/bIITaDcNdS+yD5SDJtEzsVjCiuJqzFtJeY6YweTdb9kS7USK0whcvyB5sxpLSsonwbOaZKs6vMer36vg/i38oAKpa2elKP9Ue4gjk2u9kW07s1s26LE0lZD84BpfA4PoLWJKyv8ePRwFV11k06Bsjr4VToHI3zQo=
+  app: shopping-cart
+  on:
+    repo: andrelucky/shopping-cart
