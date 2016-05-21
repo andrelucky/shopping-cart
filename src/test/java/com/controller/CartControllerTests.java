@@ -10,10 +10,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static com.jayway.restassured.RestAssured.get;
-import static com.jayway.restassured.RestAssured.given;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.jayway.restassured.RestAssured.*;
 
 /**
  * Created by Andre Luckyanto on 21/05/2016.
@@ -21,7 +24,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ShoppingCartApplication.class)
-//@Sql(scripts = {"/sample.sql"})
+@Sql(scripts = {"/sample.sql"})
 @WebIntegrationTest(randomPort = true)
 public class CartControllerTests {
     private static final String BASE_URL = "/api/cart";
@@ -69,10 +72,29 @@ public class CartControllerTests {
                 .statusCode(400);
     }
 
-//    @Test
-//    public void testDelete() {
-//        delete(BASE_URL + "/6121d546-7336-daa7-e10f-ccd0a57b29ae")
-//                .then()
-//                .statusCode(200);
-//    }
+    @Test
+    public void testDelete() {
+        delete(BASE_URL + "/34567")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void testCheckout() {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("cartId", "12345");
+        map.put("name", "Andre");
+        map.put("email", "andreluckyanto@ymail.com");
+        map.put("address", "depok");
+        map.put("discountCode", "DISKON200");
+
+        given()
+                .body(map)
+                .contentType(ContentType.JSON)
+                .when()
+                .post(BASE_URL + "/checkout")
+                .then()
+                .statusCode(200);
+    }
 }

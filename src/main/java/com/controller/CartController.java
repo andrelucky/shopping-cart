@@ -79,13 +79,14 @@ public class CartController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @Transactional(readOnly = false)
     public Cart delete(HttpSession session, @PathVariable("id") String id) {
-        Cart cart = cartDao.findBySessionId(session.getId());
 
         CartDetail cartDetail = cartDetailDao.findOne(id);
 
         if (cartDetail == null) {
             throw new DataNotFoundException("ID Not found");
         }
+
+        Cart cart = cartDao.findOne(cartDetail.getCartId());
 
         Double totalPrice = cart.getTotalPrice() - (cartDetail.getPrice() * cartDetail.getQty());
         cart.setTotalPrice(totalPrice);
@@ -102,11 +103,15 @@ public class CartController {
     @Transactional(readOnly = false)
     public Cart checkout(HttpSession session, @RequestBody @Valid Map map) {
 
-        if (map == null || map.get("name") == null || map.get("email") == null || map.get("address") == null) {
+        if (map == null || map.get("cartId") == null || map.get("name") == null || map.get("email") == null || map.get("address") == null) {
             throw new DataNotFoundException("Bad Request");
         }
 
-        Cart cart = cartDao.findBySessionId(session.getId());
+        Cart cart = cartDao.findOne(map.get("cartId").toString());
+
+        if (cart == null) {
+            throw new DataNotFoundException("ID Not found");
+        }
 
         cart.setName(map.get("name").toString());
         cart.setAddress(map.get("address").toString());
